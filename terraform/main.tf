@@ -29,7 +29,7 @@ resource "aws_rds_cluster" "default" {
   master_username    = "foo"
   master_password    = "barbut8chars"
   port=3306
-  apply_immediately=false
+  apply_immediately=true
 }
 
 
