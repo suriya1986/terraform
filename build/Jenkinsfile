@@ -1,9 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage ('Infra Changes') {
+        stage ('Show Infra Changes') {
             steps {
                awsCodeBuild(projectName: 'Jenkins', credentialsType:'jenkins', credentialsId: 'CodeBuildJenkins', region: 'ap-south-1', sourceControlType: 'jenkins',buildSpecFile:'build/buildterraform.yml', envVariables :'[{environment, dev},{action, plan}]')
+            }
+        }
+        stage('Deploy Infra Changes'){
+            steps {
+                input "Deploy Changes?"
             }
         }
         stage ('Create RDS in Dev') {
