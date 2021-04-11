@@ -38,8 +38,10 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   identifier         = "aurora-cluster-demo"
   cluster_identifier = "${aws_rds_cluster.default.id}"
   instance_class     = "db.t2.medium"
-  engine             = "${aws_rds_cluster.default.engine}"
-  engine_version     = "${aws_rds_cluster.default.engine_version}"
+  engine="aurora-mysql"
+  engine_version="5.7.mysql_aurora.2.09.2"
+  # engine             = "${aws_rds_cluster.default.engine}"
+  # engine_version     = "${aws_rds_cluster.default.engine_version}"
 }
 # resource "aws_instance" "web" {
 #   ami           = "ami-0e306788ff2473ccb"
