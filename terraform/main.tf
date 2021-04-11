@@ -30,7 +30,6 @@ resource "aws_rds_cluster" "default" {
   master_password    = "barbut8chars"
   port=3306
   apply_immediately=true
-  publicly_accessible = true
 }
 
 
