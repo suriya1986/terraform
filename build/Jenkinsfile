@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage ('Create EC2 in Dev') {
+            steps {
+               awsCodeBuild(projectName: 'Jenkins', credentialsType:'jenkins', credentialsId: 'CodeBuildJenkins', region: 'ap-south-1', sourceControlType: 'jenkins',buildSpecFile:'build/buildterraform.yml', envVariables :'[{environment, dev}]')
+            }
+        }
+        stage('Deploy approval'){
+            steps {
+                input "Deploy to QA?"
+            }
+        }
+        stage ('Create EC2 in QA') {
+            steps {
+               awsCodeBuild(projectName: 'Jenkins', credentialsType:'jenkins', credentialsId: 'CodeBuildJenkins', region: 'ap-south-1', sourceControlType: 'jenkins',buildSpecFile:'build/buildterraform.yml', envVariables :'[{environment, qa}]')
+            }
+        }
+    }
+}
