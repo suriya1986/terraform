@@ -19,8 +19,12 @@ phases:
       - cd $CODEBUILD_SRC_DIR/terraform
       - terraform init -input=false
       - terraform workspace select ${environment} || terraform workspace new ${environment}
-      - terraform plan -var environment=${environment}
-      # - terraform ${action} -var environment=${environment} -input=false -auto-approve
+      - |
+        if [ "$action" = "plan" ]; then
+         terraform plan -var environment=${environment}
+        else
+         terraform apply -var environment=${environment} -input=false -auto-approve
+        fi
   post_build:
     commands:
       - echo "Nothing to do in the post_build for now"
