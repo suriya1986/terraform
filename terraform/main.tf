@@ -36,7 +36,7 @@ resource "aws_rds_cluster" "default" {
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
   count              = 1
-  identifier         = "aurora-cluster-demo-${count.index}"
+  identifier         = "aurora-cluster-demo"
   cluster_identifier = aws_rds_cluster.default.id
   instance_class     = "db.t2.medium"
   engine             = aws_rds_cluster.default.engine
