@@ -41,6 +41,11 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   engine="aurora-mysql"
   engine_version="5.7.mysql_aurora.2.09.2"
   publicly_accessible = true
+  lifecycle {
+    ignore_changes = [
+      engine_version,
+    ]
+  }
   # engine             = "${aws_rds_cluster.default.engine}"
   # engine_version     = "${aws_rds_cluster.default.engine_version}"
 }
