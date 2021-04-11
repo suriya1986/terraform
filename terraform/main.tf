@@ -1,9 +1,9 @@
 terraform {
-  required_version = ">= 0.13"
+  required_version = ">= 0.11"
    backend "s3" {
       bucket = "suriya-build-artifacts"
-      key    = "myapp.tfstate"
-      workspace_key_prefix="myapp"
+      key    = "rds.tfstate"
+      workspace_key_prefix="rds"
    }
   # backend "s3" {
   #   bucket = "suriya-build-artifacts"
@@ -37,10 +37,10 @@ resource "aws_rds_cluster" "default" {
 resource "aws_rds_cluster_instance" "cluster_instances" {
   count              = 1
   identifier         = "aurora-cluster-demo"
-  cluster_identifier = aws_rds_cluster.default.id
+  cluster_identifier = "${aws_rds_cluster.default.id}"
   instance_class     = "db.t2.medium"
-  engine             = aws_rds_cluster.default.engine
-  engine_version     = aws_rds_cluster.default.engine_version
+  engine             = "${aws_rds_cluster.default.engine}"
+  engine_version     = "${aws_rds_cluster.default.engine_version}"
 }
 # resource "aws_instance" "web" {
 #   ami           = "ami-0e306788ff2473ccb"
