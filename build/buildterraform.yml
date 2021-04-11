@@ -19,7 +19,7 @@ phases:
       - cd $CODEBUILD_SRC_DIR/terraform
       - terraform init -input=false
       - terraform workspace select ${environment} || terraform workspace new ${environment}
-      - terraform plan
+      - terraform plan -var environment=${environment}
       # - terraform ${action} -var environment=${environment} -input=false -auto-approve
   post_build:
     commands:
