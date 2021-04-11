@@ -1,9 +1,14 @@
 pipeline {
     agent any
     stages {
+        stage ('Infra Changes') {
+            steps {
+               awsCodeBuild(projectName: 'Jenkins', credentialsType:'jenkins', credentialsId: 'CodeBuildJenkins', region: 'ap-south-1', sourceControlType: 'jenkins',buildSpecFile:'build/buildterraform.yml', envVariables :'[{environment, dev},{action, plan}]')
+            }
+        }
         stage ('Create RDS in Dev') {
             steps {
-               awsCodeBuild(projectName: 'Jenkins', credentialsType:'jenkins', credentialsId: 'CodeBuildJenkins', region: 'ap-south-1', sourceControlType: 'jenkins',buildSpecFile:'build/buildterraform.yml', envVariables :'[{environment, dev}]')
+               awsCodeBuild(projectName: 'Jenkins', credentialsType:'jenkins', credentialsId: 'CodeBuildJenkins', region: 'ap-south-1', sourceControlType: 'jenkins',buildSpecFile:'build/buildterraform.yml', envVariables :'[{environment, dev},{action, apply}]')
             }
         }
         stage('Deploy approval'){
@@ -13,7 +18,7 @@ pipeline {
         }
         stage ('Create RDS in QA') {
             steps {
-               awsCodeBuild(projectName: 'Jenkins', credentialsType:'jenkins', credentialsId: 'CodeBuildJenkins', region: 'ap-south-1', sourceControlType: 'jenkins',buildSpecFile:'build/buildterraform.yml', envVariables :'[{environment, qa}]')
+               awsCodeBuild(projectName: 'Jenkins', credentialsType:'jenkins', credentialsId: 'CodeBuildJenkins', region: 'ap-south-1', sourceControlType: 'jenkins',buildSpecFile:'build/buildterraform.yml', envVariables :'[{environment, qa},{action, apply}]')
             }
         }
     }
