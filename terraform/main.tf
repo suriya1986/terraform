@@ -23,7 +23,7 @@ variable "environment" {
 resource "aws_rds_cluster" "default" {
   cluster_identifier = "sample-${var.environment}-cluster"
   engine="aurora-mysql"
-  engine_version="5.7.mysql_aurora.2.09.2"
+  engine_version="5.7.mysql_aurora.2.09.1"
   availability_zones = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
   database_name      = "mydb"
   master_username    = "foo"
@@ -39,7 +39,7 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   cluster_identifier = "${aws_rds_cluster.default.id}"
   instance_class     = "db.t2.medium"
   engine="aurora-mysql"
-  engine_version="5.7.mysql_aurora.2.09.2"
+  engine_version="5.7.mysql_aurora.2.09.1"
   publicly_accessible = true
   lifecycle {
     create_before_destroy = true
