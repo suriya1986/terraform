@@ -59,9 +59,9 @@ resource "aws_appautoscaling_target" "replicas" {
 
 resource "aws_appautoscaling_policy" "replicas" {
   name               = "cpu-auto-scaling"
-  service_namespace  = aws_appautoscaling_target.replicas.service_namespace
-  scalable_dimension = aws_appautoscaling_target.replicas.scalable_dimension
-  resource_id        = aws_appautoscaling_target.replicas.resource_id
+  service_namespace  = "${aws_appautoscaling_target.replicas.service_namespace}"
+  scalable_dimension = "${aws_appautoscaling_target.replicas.scalable_dimension}"
+  resource_id        = "${aws_appautoscaling_target.replicas.resource_id}"
   policy_type        = "TargetTrackingScaling"
 
   target_tracking_scaling_policy_configuration {
@@ -69,7 +69,7 @@ resource "aws_appautoscaling_policy" "replicas" {
       predefined_metric_type = "RDSReaderAverageCPUUtilization"
     }
 
-    target_value       = 90
+    target_value       = 75
     scale_in_cooldown  = 300
     scale_out_cooldown = 300
   }
