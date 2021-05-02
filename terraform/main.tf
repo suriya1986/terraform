@@ -5,6 +5,12 @@ terraform {
       key    = "rds.tfstate"
       workspace_key_prefix="rds"
    }
+   required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 2.7.0"
+    }
+  }
   # backend "s3" {
   #   bucket = "suriya-build-artifacts"
   #   key    = "myapp/myapp.tfstate"
