@@ -20,7 +20,7 @@ terraform {
 
 provider "aws" {
   region = "ap-south-1"
-  version = "~> 2.70"
+  version = ">= 2.7.0"
 }
 
 variable "environment" {
